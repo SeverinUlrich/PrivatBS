@@ -1,5 +1,5 @@
 #!/bin/sh
-for f in /home/mi1373/BS/Aufgabenblatt_01/*
+for f in *.*
 do 
 if test -r $f; then
 	echo "Wollen Sie die Datei $f entfernen? j/n"
