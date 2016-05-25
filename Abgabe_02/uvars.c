@@ -17,15 +17,19 @@ while(environ[i] != NULL)
 
 printf("Bitte geben Sie eine Umgebungsvariable ein:\n");
 scanf("%s", &uvar);
+char *wert;
+
+
+printf("%s", getenv(uvar));
 
 
 int j = 0;
 
 while (environ[j] != NULL)
     {
-    if(strcmp(uvar, environ[j]) == 0)
+    if(strcmp(uvar, getenv(uvar)) == 0)
         {
-        printf("%s -> %s\n", argv[j], uvar);
+        printf("%s -> %s", uvar, getenv(wert));
         return 0;
         }
     else
