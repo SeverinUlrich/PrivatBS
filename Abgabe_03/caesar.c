@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <errno.h>
 
 void rot13(char a[],  char b[]){
     
@@ -35,24 +36,26 @@ return;
 
 int main (int agrc, char *argv[])
 {
-    int fd;
-    char *myfifo = "/tmp/myfifo";
+             
+    int fd = 1;
+    char *myfifo = "fifo";
     char text[50];
     char c[50];
     printf("Text eingeben:\n");
     
     fgets(text, 50, stdin);
     
+    mkfifo(myfifo, 0666);  
+    
     rot13(text, c);
     printf("%s", c);
     
-    mkfifo(myfifo, 0666);
-    
     fd = open(myfifo, O_WRONLY);
+    printf("%i blablabal", fd);
     write(fd, c, sizeof(c));
-    printf("%i", fd);
+    printf("%i hallo", fd);
     close(fd);
     
     unlink(myfifo);
-    return 0;
+    return EXIT_SUCCESS;
 }

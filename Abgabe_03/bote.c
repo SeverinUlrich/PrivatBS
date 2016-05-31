@@ -3,17 +3,17 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-
 int main ()
 {
    int fd;
-   char *myfifo = "/tmp/myfifo";
-   char buf[50];
-    
-   fd = open(myfifo, O_RDONLY);
-   read(fd, buf, 50);
-   printf("Die Nachricht lautet: %s\n", buf); 
+   char *myfifo = "fifo";
+   char text[50];
+
+
+   fd = open(fifo, O_RDONLY);
+   read(fd, text, 50);
+   printf("Die Nachricht lautet: %s\n", text); 
    close(fd);
-   
+    
    return 0;
 }
