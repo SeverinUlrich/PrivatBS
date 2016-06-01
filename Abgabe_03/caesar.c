@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <errno.h>
 
+#define FIFO_NAME "fifo"
 void rot13(char a[],  char b[]){
     
         int i = 0, lo = 65, hi = 90, diff = 32, rot = 13;
@@ -38,24 +39,24 @@ int main (int agrc, char *argv[])
 {
              
     int fd = 1;
-    char *myfifo = "fifo";
+   /* char *fifo = "fifo"; */
     char text[50];
     char c[50];
     printf("Text eingeben:\n");
     
     fgets(text, 50, stdin);
     
-    mkfifo(myfifo, 0666);  
+    mkfifo(FIFO_NAME, 0666 | O_RDWR);  
     
     rot13(text, c);
     printf("%s", c);
     
-    fd = open(myfifo, O_WRONLY);
+    fd = open(FIFO_NAME, O_WRONLY );
     printf("%i blablabal", fd);
     write(fd, c, sizeof(c));
     printf("%i hallo", fd);
     close(fd);
     
-    unlink(myfifo);
+    unlink(FIFO_NAME);
     return EXIT_SUCCESS;
 }
