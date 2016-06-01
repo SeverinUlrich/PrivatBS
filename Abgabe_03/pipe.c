@@ -2,16 +2,7 @@
 #include<stdlib.h>
 #include<unistd.h>
 
-
-/*
-Moeglicher Aufruf
-./a.out <prog1> <prog2>
-./a.out <prog1> <opt1> <prog2>
-./a.out <prog1> <opt1> <prog2> <opt1>
-./a.out <prog1> <prog2> <opt1>
-*/
-
-int main(int argc, char * argv[])
+int main(int argc, char *argv[])
 {
 
 	char* arg1[3];
@@ -51,8 +42,8 @@ int main(int argc, char * argv[])
 			case 4:
 				arg2[1] = argv[i];
 				break;
-		}
-	}
+		 }
+	  }
 	
 	if( arg2[0] == NULL )
 	{
@@ -75,7 +66,7 @@ int main(int argc, char * argv[])
 
 		if(dup2(fd[0], 0) < 0)
 		{
-			printf("Da ging was schief!");
+			printf("Oh oh, Da ging was schief beim Lesen!");
 			return EXIT_FAILURE;
 		}
 		close(fd[1]);
@@ -86,7 +77,7 @@ int main(int argc, char * argv[])
 
 		if(dup2(fd[1], 1)<0)
 		{
-			printf("Da ging was anderes schief!");
+			printf("Da ging was anderes schief mit dem duplizieren des fds!");
 			return EXIT_FAILURE;
 		}
 		close(fd[0]);
