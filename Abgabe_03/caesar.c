@@ -6,6 +6,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <ctype.h>
+
 
 #define FIFO_NAME "fifo"
 void rot13(char a[],  char b[]){
@@ -38,7 +40,6 @@ return;
 int main (int agrc, char *argv[])
 {
              
-    int fd = 1;
    /* char *fifo = "fifo"; */
     char text[50];
     char c[50];
@@ -46,17 +47,17 @@ int main (int agrc, char *argv[])
     
     fgets(text, 50, stdin);
     
-    mkfifo(FIFO_NAME, 0666 | O_RDWR);  
+    mkfifo(FIFO_NAME, 0777);  
     
     rot13(text, c);
     printf("%s", c);
     
-    fd = open(FIFO_NAME, O_WRONLY );
-    printf("%i blablabal", fd);
-    write(fd, c, sizeof(c));
-    printf("%i hallo", fd);
-    close(fd);
-    
+    FILE *fd = fopen(FIFO_NAME, "w");
+    printf("test");
+    fprintf(fd, "%s", c);
+	fflush(fd);
+    fclose(fd);
+
     unlink(FIFO_NAME);
     return EXIT_SUCCESS;
 }
